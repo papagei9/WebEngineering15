@@ -1,0 +1,54 @@
+Model Ember.js GroupCollab Application
+
+Friday 6 November 2015
+16:24
+
+User
+	• Username
+	• Password
+	• Email
+	• First name
+	• Last name
+
+Project
+	• Name
+	• Owner
+	• Members & Rights (Read/Write, Roles [Member, Admin]) (N:M)
+	• IsPublic (public: read access)
+
+Projects_Members
+	• project_id
+	• user_id
+	• Role
+	• Write
+	• Read
+
+Note
+	• Text
+	• Date
+	• Owner
+	• Color
+	• Project (N:1)
+
+Task
+	• Title
+	• Text
+	• Owner
+	• Date
+	• Deadline
+	• AssignedUsers (N:M)
+	• Color
+	• Priority
+	• Project(N:1)
+	• Comments (1:N)
+	• State (ongoing, etc?? Create by yourself?)
+
+State
+	• State
+	• Project (N:1)
+
+Comment
+	• Text
+	• User
+	• Date
+	• Task (N:1)
