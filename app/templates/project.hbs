@@ -1,0 +1,48 @@
+Name: {{model.name}}<br />
+Owner: {{model.owner.username}}<br />
+isPublic: {{model.isPublic}}<br />
+Members:<br />
+<ul>
+    {{#each model.members as |m|}}
+    <li>{{m.username}}</li>
+    {{/each}}
+</ul>
+<br />
+<b>Tasks: </b>
+<br />
+{{#each model.tasks as |task|}}
+<blockquote style="background-color:{{task.color}}">
+    Title: {{task.title}}<br />
+    User: {{task.owner.username}}<br />
+    Text: {{task.text}}<br />
+    Date: {{task.date}}<br />
+    Deadline: {{task.deadline}}<br />
+    Color: {{task.color}}<br />
+    Priority: {{task.priority}}<br />
+    State: {{task.state.name}}<br />
+    Comments:
+    <ul>
+    {{#each task.comments as |comment|}}
+    <li>{{comment.user.username}} ({{comment.date}}): {{comment.text}}</li>
+    {{/each}}    
+    </ul>
+    AssignedUsers:
+    <ul>
+    {{#each task.assignedUsers as |a|}}
+    <li>{{a.username}}</li>
+    {{/each}}
+    </ul>
+</blockquote>
+{{/each}}
+
+
+<b>Notes: </b>
+<br />
+{{#each model.notes as |note|}}
+<blockquote style="background-color:{{note.color}}">
+    Text: {{note.text}}<br />
+    User: {{note.owner.username}}<br />
+    Date: {{note.date}}<br />
+    Color: {{note.color}}<br />
+</blockquote>
+{{/each}}
