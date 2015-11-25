@@ -3,8 +3,9 @@ import DS from 'ember-data';
 var User = DS.Model.extend({
   username: DS.attr('string'),
   email: DS.attr('string'),
-    firstname: DS.attr('string'),
-    lastname: DS.attr('string')
+    firstName: DS.attr('string'),
+    lastName: DS.attr('string'),
+    pasword: DS.attr('string')
 });
 
 User.reopenClass({
@@ -13,15 +14,15 @@ User.reopenClass({
         id: 1,
         username: "Andi",
         email: "andi@webeng",
-        firstname: "Andi",
-        lastname: "Hohler"
+        firstName: "Andi",
+        lastName: "Hohler"
     },
     {
         id: 2,
         username: "Karan",
         email: "karan@webeng",
-        firstname: "Karan",
-        lastname: "Sethi"
+        firstName: "Karan",
+        lastName: "Sethi"
     }
   ]
 });
