@@ -43,14 +43,22 @@ module.exports = function(environment) {
 
   }
 
-    ENV.contentSecurityPolicy = {  
+    ENV.contentSecurityPolicy = {
         'default-src': "'none'",
         'script-src': "'self'",
         'font-src': "'self'",
-        'connect-src': "'self' https://group-collab-api.herokuapp.com",
+        'connect-src': "'self' *",
         'img-src': "'self'",
-        'style-src': "'self'",
+        'style-src': "'self' 'unsafe-inline'",
         'media-src': "'self'"
-    }
+    };
+
+    ENV['simple-auth'] = {
+    store: 'simple-auth-session-store:local-storage',
+    authorizer: 'authorizer:custom',
+    crossOriginWhitelist: ['http://group-collab-api.herokuapp.com/'],
+    routeAfterAuthentication: '/projects'
+    };
+
   return ENV;
 };

@@ -12,6 +12,8 @@ Router.map(function() {
   this.route('project', { path: '/projects/:project_id' }, function() {
   });
   this.route('users');
+    
+  this.route('login');
 });
 
 export default Router;

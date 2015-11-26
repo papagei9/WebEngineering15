@@ -15,7 +15,7 @@ Project.reopenClass({
     {
       id: 1,
       name: "Testproject",
-      owner: 1,
+      owner: '5650eabe57c64811009fdf80',
       isPublic: false,
         tasks: [1, 2],
         notes: [1, 2],

@@ -22,6 +22,9 @@ module.exports = function(defaults) {
   // bootstrap
   app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');
   app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
+    
+  // base64
+  app.import('vendor/jquery.base64.js');
 
   return app.toTree();
 };
