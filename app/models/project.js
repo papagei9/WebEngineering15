@@ -2,11 +2,11 @@ import DS from 'ember-data';
 
 var Project = DS.Model.extend({
   name: DS.attr('string'),
-  owner: DS.belongsTo('user',{async:true}),
+  owner: DS.belongsTo('user',{}),
   isPublic: DS.attr('boolean'),
     tasks: DS.hasMany('task',{async:true}),
     notes: DS.hasMany('note',{async:true}),
-    members: DS.hasMany('user',{async:true})
+    members: DS.hasMany('user',{})
 });
 
 
@@ -35,4 +35,3 @@ Project.reopenClass({
 
 
 export default Project;
-
