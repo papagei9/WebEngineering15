@@ -8,10 +8,11 @@ export default Ember.Service.extend({
   store: service(),
 
   account: Ember.computed('session.user', function() {
-    const account = this.get('session.user');
+    //const account = this.get('session.user');
+    const account = Ember.$.cookie('user_id');
     if (!Ember.isEmpty(account)) {
       return DS.PromiseObject.create({
-        promise: this.get('store').findRecord('user', {username: account})
+        promise: this.get('store').findRecord('user', account)
       });
     }
   })

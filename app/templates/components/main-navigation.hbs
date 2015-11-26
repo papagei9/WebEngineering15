@@ -30,7 +30,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
          {{#if session.isAuthenticated}}
-        <li><a href="#" {{action 'logout'}} >Logout ({{session.user}}{{sessionAccount.account.username}})</a></li>
+           <li>{{#link-to "account"}}Account{{/link-to}}</li>
+        <li><a href="#" {{action 'logout'}} >Logout ({{sessionAccount.account.username}})</a></li>
       {{else}}
         <li>{{#link-to "login"}}Login{{/link-to}}</li>
       {{/if}}

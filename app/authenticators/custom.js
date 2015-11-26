@@ -21,6 +21,7 @@ export default Base.extend({
         Ember.$.cookie('authToken', auth);
         this.set('session.authToken', auth);
         this.set('session.user', options.identification);
+        Ember.$.cookie('user', options.identification);
 
         return new Ember.RSVP.Promise((resolve, reject) => {
             Ember.$.ajax({
@@ -37,13 +38,14 @@ export default Base.extend({
                     username: options.identification,
                     password: options.password
                 }),*/
-                contentType: 'text/plain',
-                dataType: 'text'
+                contentType: 'application/json',
+                dataType: 'json'
             }).then(function(response) {
                 Ember.run(function() {
                     resolve({
                         token: response
                     });
+                  Ember.$.cookie('user_id', response.user._id);
                 });
             }, function(xhr, status, error) {
                 var response = xhr.responseText;
