@@ -6,9 +6,9 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('projects', function() {
-      this.route('new');
-  });
+  this.route('projects');
+    
+  this.route('projects.new', { path: '/projects/new' } );
   this.route('project', { path: '/projects/:project_id' }, function() {
   });
   this.route('users');

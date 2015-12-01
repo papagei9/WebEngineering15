@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label class="control-label col-lg-2" for="inputTitle">Name</label>
+  <div class="col-lg-10">
+  {{view Ember.TextField value=name id="inputName" classNames="form-control"}}
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="control-label col-lg-2" for="inputTitle">is Public?</label>
+  <div class="col-lg-10">
+      {{view App.RadioButton selectionBinding="isPublic" value="1" classNames="form-control"}} Public
+      {{view App.RadioButton selectionBinding="isPublic" value="0" classNames="form-control"}} Private
+  </div>
+</div>
+
+<input type="hidden" {{bind-attr value=id}} id="id"/>
