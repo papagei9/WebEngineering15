@@ -33,6 +33,7 @@
            <li>{{#link-to "account"}}Account{{/link-to}}</li>
         <li><a href="#" {{action 'logout'}} >Logout ({{sessionAccount.account.username}})</a></li>
       {{else}}
+        <li>{{#link-to "signup"}}Sign up{{/link-to}}</li>
         <li>{{#link-to "login"}}Login{{/link-to}}</li>
       {{/if}}
       </ul>
