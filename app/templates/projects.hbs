@@ -1,3 +1,5 @@
 {{#each model as |item|}}
+{{#if item.id}}
 {{#link-to "project.index" item}}{{item.name}} (by {{item.owner.username}}){{/link-to}}<br />
+{{/if}}
 {{/each}}

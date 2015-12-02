@@ -1,16 +1,25 @@
 <div class="form-group">
   <label class="control-label col-lg-2" for="inputTitle">Name</label>
   <div class="col-lg-10">
-  {{view Ember.TextField value=name id="inputName" classNames="form-control"}}
+  {{input type="text" value=model.project.name id="inputName" classNames="form-control"}}
   </div>
 </div>
 
 <div class="form-group">
-  <label class="control-label col-lg-2" for="inputTitle">is Public?</label>
+  <label class="control-label col-lg-2" for="inputTitle">Make this project public?</label>
   <div class="col-lg-10">
-      {{view App.RadioButton selectionBinding="isPublic" value="1" classNames="form-control"}} Public
-      {{view App.RadioButton selectionBinding="isPublic" value="0" classNames="form-control"}} Private
+      {{input type="checkbox" name="isPublic" checked=model.project.isPublic}}  
   </div>
 </div>
 
-<input type="hidden" {{bind-attr value=id}} id="id"/>
+<div class="form-group">
+  <label class="control-label col-lg-2" for="inputTitle">Members</label>
+  <div class="col-lg-10">      
+      {{#each model.users as |u|}}
+        <label>{{u.username}}</label>
+      {{input type="checkbox" name="members[u.id]" checked=model.project.members}}<br />
+      {{/each}}
+  </div>
+</div>
+
+<input type="hidden" value={{id}} id="id"/>
