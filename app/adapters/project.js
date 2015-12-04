@@ -1,7 +1,5 @@
 import DS from "ember-data";
 
-var ProjectAdapter = DS.FixtureAdapter.extend({});
-
 var ProjectAdapter = DS.RESTAdapter.extend({
     host: 'https://group-collab-api.herokuapp.com',
     namespace: 'api',

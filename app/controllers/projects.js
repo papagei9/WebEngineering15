@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-var ProjectsController = Ember.ArrayController.extend({
+var ProjectsController = Ember.Controller.extend({
 
 });
 
