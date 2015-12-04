@@ -1,14 +1,17 @@
 import Ember from 'ember';
 
-var ProjectNewRoute = Ember.Route.extend({
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+
+const { service } = Ember.inject;
+
+var ProjectNewRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
+  sessionAccount: service('session-account'),
+
   model: function() {
       return Ember.RSVP.hash({
-      users: this.store.findAll('user'),
-      project: this.store.createRecord('project', {name: "asdasd"})
+      users: this.store.findAll('user'), //TODO: exclude owner
+      project: this.store.createRecord('project')
     });
-  },
-  users: function() {
-    return this.store.findRecord('user');
   },
   actions: {
     create: function(model) {
@@ -16,7 +19,7 @@ var ProjectNewRoute = Ember.Route.extend({
             console.log(model);
 			var that = this;
 			/*this.pouch.POST(model).then(function(){
-				that.transitionTo('photos');				
+				that.transitionTo('photos');
 			});*/
     },
     cancel: function() {
