@@ -16,14 +16,6 @@ var ProjectNewRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
   });
   },
   actions: {
-    create: function(model) {
-            console.log("ACTION");
-            console.log(model);
-			var that = this;
-			/*this.pouch.POST(model).then(function(){
-				that.transitionTo('photos');
-			});*/
-    },
     cancel: function() {
       this.transitionTo('projects');
       return true;

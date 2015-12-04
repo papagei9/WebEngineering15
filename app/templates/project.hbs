@@ -1,10 +1,12 @@
-{{#if (eq sessionAccount.account.username model.owner.username)}}
-    <a href="#" {{action "deleteProject" this}} class="btn btn-danger">Delete</a><br />
-{{/if}}
 
 Name: {{model.name}}<br />
 Owner: {{model.owner.username}}<br />
 isPublic: {{model.isPublic}}<br />
+
+{{#if (eq sessionAccount.account.username model.owner.username)}}
+  {{delete-button deleteAction="deleteProject"}}
+{{/if}}
+
 Members:<br />
 <ul>
     {{#each model.members as |m|}}
