@@ -1,3 +1,6 @@
+{{#link-to "projects.new" class="btn btn-default"}}New project{{/link-to}}
+<br /><br />
+
 {{#each model as |item|}}
 {{#if item.id}}
 {{#link-to "project.index" item}}{{item.name}} (by {{item.owner.username}}){{/link-to}}<br />

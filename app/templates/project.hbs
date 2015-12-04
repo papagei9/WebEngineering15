@@ -1,3 +1,7 @@
+{{#if (eq sessionAccount.account.username model.owner.username)}}
+    <a href="#" {{action "deleteProject" this}} class="btn btn-danger">Delete</a><br />
+{{/if}}
+
 Name: {{model.name}}<br />
 Owner: {{model.owner.username}}<br />
 isPublic: {{model.isPublic}}<br />
@@ -24,7 +28,7 @@ Members:<br />
     <ul>
     {{#each task.comments as |comment|}}
     <li>{{comment.user.username}} ({{comment.date}}): {{comment.text}}</li>
-    {{/each}}    
+    {{/each}}
     </ul>
     AssignedUsers:
     <ul>
