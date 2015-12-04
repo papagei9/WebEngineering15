@@ -4,7 +4,6 @@ var Project = DS.Model.extend({
   name: DS.attr('string'),
   owner: DS.belongsTo('user',{}),
   isPublic: DS.attr('boolean'),
-  tasks: DS.hasMany('task',{async:true}),
   notes: DS.hasMany('note',{async:true}),
   members: DS.hasMany('user',{})
 });
