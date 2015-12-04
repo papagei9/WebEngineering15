@@ -16,7 +16,9 @@
   <label class="control-label col-lg-2" for="inputMembers">Members</label>
   <div class="col-lg-10">
     {{#each member in model.users}}
+      {{#unless (eq member.username sessionAccount.account.username)}}
         <li>{{ user-checkbox member=member project=model.project }}</li>
+      {{/unless}}
     {{/each}}
 
   </div>
