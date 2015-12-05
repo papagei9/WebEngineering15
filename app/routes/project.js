@@ -9,7 +9,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       tasks: this.store.findAll('task')
     });
   },
-  setupController: function(controller, model) {
+  /*setupController: function(controller, model) {
     this._super(controller, model);
     var project = model;
     if (model.project) {
@@ -17,5 +17,5 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     }
     controller.set('model.project', project);
     controller.set('model.tasks', this.store.findAll('task'));
-  }
+  }*/
 });
