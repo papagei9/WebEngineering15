@@ -53,3 +53,59 @@ Members:<br />
     Color: {{note.color}}<br />
 </blockquote>
 {{/each}}
+
+
+
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#task_modal">
+    New task
+</button>
+
+
+<div id="task_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New task</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+
+                <form class="form-horizontal" role="form" {{action 'createTask' on='submit'}}>
+                    <fieldset>
+                        <legend>New task</legend>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Title</label>
+                            <div class="col-lg-10">
+                              {{input value=model.task.title class="form-control"}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputMembers">Assigned Users</label>
+                            <div class="col-lg-10">
+                              {{#each model.project.members as |member|}}
+                                  <li>{{ user-checkbox-task member=member task=model.task }}</li>
+                              {{/each}}
+
+                            </div>
+                        </div>
+
+                        <input type="hidden" value={{model.task.id}} id="id"/>
+                    </fieldset>
+                </form>
+                <div class="btn-group">
+                    <button class="btn btn-large btn-primary" {{action "createTask"}}>Create</button>
+                    <button class="btn btn-large btn-danger" type="button">Cancel</button>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
