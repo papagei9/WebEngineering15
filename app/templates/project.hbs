@@ -196,14 +196,14 @@ Members:<br />
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputName">Color</label>
                             <div class="col-lg-10">
-                                <div class="input-group colorpicker">
-                                  {{input value=model.task.color class="form-control"}}
+                                <div class="input-group colorpicker2">
+                                  {{input value=model.note.color class="form-control"}}
                                     <span class="input-group-addon"><i></i></span>
                                 </div>
                             </div>
                             <script>
                                 $(function(){
-                                    $('.colorpicker').colorpicker({
+                                    $('.colorpicker2').colorpicker({
                                         color: "#009900"
                                     });
                                 });
@@ -224,6 +224,7 @@ Members:<br />
 
 
 <script>
+    /*
     $(document).ready(function(){
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
@@ -231,4 +232,5 @@ Members:<br />
             increaseArea: '20%' // optional
         });
     });
+    */
 </script>
