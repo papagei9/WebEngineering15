@@ -53,11 +53,13 @@ export default Ember.Controller.extend({
       }).then(function(response) {
         flashMessages.success('Task saved!', {timeout: 5000});
         self.transitionToRoute('project', project);
+        $('#task_modal').modal('toggle');
 
       }, function(xhr, status, error) {
         //var response = xhr.responseText;
-        flashMessages.danger('Task could not save!', {timeout: 5000});
-        self.transitionToRoute('project', project);
+        //flashMessages.danger('Task could not save!', {timeout: 5000});
+        //self.transitionToRoute('project', project);
+        this.set('errorMessage', "Task could not save!");
         //console.log(status);
         //console.log(error);
       });
