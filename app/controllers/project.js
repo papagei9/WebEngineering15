@@ -26,25 +26,27 @@ export default Ember.Controller.extend({
       var project = this.get('model.project');
       const flashMessages = Ember.get(this, 'flashMessages');
 
-      var self = this;
-      var auth = Ember.get(document.cookie.match(/authToken\=([^;]*)/), "1");
+      var usersArray = [];
+      task.get("assignedUsers").forEach(function(u) {
+        usersArray.push(u.get("id"));
+      });
+      console.log(usersArray);
 
+      var self = this;
+      var cookie = Ember.$.cookie('authToken');
       Ember.$.ajax({
         context: this,
         url: 'http://group-collab-api.herokuapp.com/api/projects/'+project.id+'/tasks',
         type: 'POST',
-        /*headers: {
-         'Authorization':'Basic ' + auth
-         },*/
         //data: data,
         data: JSON.stringify({ task: {
-          title: task.title,
-          text: task.text,
-          assignedUsers: task.assignedUsers
+          title: task.get("title"),
+          text: task.get("text"),
+          assignedUsers: usersArray
         }
         }),
         headers: {
-          'Authorization':'Basic ' + auth
+          'Authorization':'Basic ' + cookie
         },
         contentType: 'application/json',
         dataType: 'json'
@@ -55,6 +57,7 @@ export default Ember.Controller.extend({
       }, function(xhr, status, error) {
         //var response = xhr.responseText;
         flashMessages.danger('Task could not save!', {timeout: 5000});
+        self.transitionToRoute('project', project);
         //console.log(status);
         //console.log(error);
       });
