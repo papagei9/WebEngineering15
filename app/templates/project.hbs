@@ -96,6 +96,56 @@ Members:<br />
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Deadline</label>
+                            <div class="col-lg-10">
+                            <div class="input-group date datetimepicker">
+                                {{input value=model.task.deadline class="form-control"}}
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datetimepicker').datetimepicker();
+                                });
+                            </script>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label class="control-label col-lg-2" for="inputName">Color</label>
+                          <div class="col-lg-10">
+                          <div class="input-group colorpicker" style="z-index:0;">
+                            {{input value=model.task.color class="form-control"}}
+                              <span class="input-group-addon"><i></i></span>
+                          </div>
+                          </div>
+                          <script>
+                              $(function(){
+                                  $('.colorpicker').colorpicker({
+                                      color: "#009900"
+                                  });
+                              });
+                          </script>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Priority</label>
+                            <div class="col-lg-10">
+                              {{input value=model.task.priority class="form-control"}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">is Done?</label>
+                            <div class="col-lg-10">
+                              {{input type="checkbox" name="isDone" checked=model.task.isDone}}
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputMembers">Assigned Users</label>
@@ -146,8 +196,18 @@ Members:<br />
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputName">Color</label>
                             <div class="col-lg-10">
-                              {{input value=model.note.color class="form-control"}}
+                                <div class="input-group colorpicker">
+                                  {{input value=model.task.color class="form-control"}}
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
                             </div>
+                            <script>
+                                $(function(){
+                                    $('.colorpicker').colorpicker({
+                                        color: "#009900"
+                                    });
+                                });
+                            </script>
                         </div>
 
                         <input type="hidden" value={{note.id}} id="id"/>
@@ -161,3 +221,14 @@ Members:<br />
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<script>
+    $(document).ready(function(){
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>

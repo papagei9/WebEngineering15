@@ -25,7 +25,19 @@ module.exports = function(defaults) {
 
   // base64
   app.import('vendor/jquery.base64.js');
+  // cookie
   app.import('vendor/jquery.cookie-1.4.1.min.js');
+  // color picker
+  app.import('vendor/bootstrap-color-picker/js/bootstrap-colorpicker.min.js');
+  app.import('vendor/bootstrap-color-picker/css/bootstrap-colorpicker.css');
 
+  //date time picker
+  app.import('vendor/moment-with-locales.min.js');
+  app.import('vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js');
+  app.import('vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css');
+
+  //icheck
+  app.import('vendor/icheck/icheck.min.js');
+  app.import('vendor/icheck/skins/square/blue.css');
   return app.toTree();
 };

@@ -41,6 +41,10 @@ export default Ember.Controller.extend({
         data: JSON.stringify({ task: {
           title: task.get("title"),
           text: task.get("text"),
+          color: task.get("color"),
+          deadline: task.get("deadline"),
+          state: task.get("state"),
+          priority: task.get("priority"),
           assignedUsers: usersArray
         }
         }),
