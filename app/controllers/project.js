@@ -30,7 +30,6 @@ export default Ember.Controller.extend({
       task.get("assignedUsers").forEach(function(u) {
         usersArray.push(u.get("id"));
       });
-      console.log(usersArray);
 
       var self = this;
       var cookie = Ember.$.cookie('authToken');
@@ -60,6 +59,45 @@ export default Ember.Controller.extend({
         //flashMessages.danger('Task could not save!', {timeout: 5000});
         //self.transitionToRoute('project', project);
         this.set('errorMessage', "Task could not save!");
+        //console.log(status);
+        //console.log(error);
+      });
+
+    },
+    createNote: function() {
+      var note = this.get('model.note');
+
+      var project = this.get('model.project');
+      const flashMessages = Ember.get(this, 'flashMessages');
+
+
+      var self = this;
+      var cookie = Ember.$.cookie('authToken');
+      Ember.$.ajax({
+        context: this,
+        url: 'http://group-collab-api.herokuapp.com/api/projects/'+project.id+'/notes',
+        type: 'POST',
+        //data: data,
+        data: JSON.stringify({ task: {
+          color: note.get("color"),
+          text:  note.get("text")
+        }
+        }),
+        headers: {
+          'Authorization':'Basic ' + cookie
+        },
+        contentType: 'application/json',
+        dataType: 'json'
+      }).then(function(response) {
+        flashMessages.success('Note saved!', {timeout: 5000});
+        self.transitionToRoute('project', project);
+        $('#note_modal').modal('toggle');
+
+      }, function(xhr, status, error) {
+        //var response = xhr.responseText;
+        //flashMessages.danger('Task could not save!', {timeout: 5000});
+        //self.transitionToRoute('project', project);
+        this.set('errorMessage', "Note could not save!");
         //console.log(status);
         //console.log(error);
       });

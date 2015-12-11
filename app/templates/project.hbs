@@ -17,6 +17,11 @@ Members:<br />
     New task
 </button>
 <br />
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#note_modal">
+    New note
+</button>
+<br />
+
 <b>Tasks: </b>
 <br />
 {{#each model.tasks as |task|}}
@@ -107,6 +112,49 @@ Members:<br />
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button class="btn btn-large btn-primary" {{action "createTask"}}>Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="note_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New note</h4>
+            </div>
+            <div class="modal-body">
+              {{#if errorMessage}}
+                  <div class="alert alert-danger">
+                      <strong>Saving failed:</strong> {{errorMessage}}
+                  </div>
+              {{/if}}
+
+                <form class="form-horizontal" role="form" {{action 'createNote' on='submit'}}>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Text</label>
+                            <div class="col-lg-10">
+                              {{input value=model.note.text class="form-control"}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Color</label>
+                            <div class="col-lg-10">
+                              {{input value=model.note.color class="form-control"}}
+                            </div>
+                        </div>
+
+                        <input type="hidden" value={{note.id}} id="id"/>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-large btn-primary" {{action "createNote"}}>Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
