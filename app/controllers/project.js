@@ -78,7 +78,7 @@ export default Ember.Controller.extend({
         url: 'http://group-collab-api.herokuapp.com/api/projects/'+project.id+'/notes',
         type: 'POST',
         //data: data,
-        data: JSON.stringify({ task: {
+        data: JSON.stringify({ note: {
           color: note.get("color"),
           text:  note.get("text")
         }

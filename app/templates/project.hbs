@@ -55,12 +55,14 @@ Members:<br />
 <b>Notes: </b>
 <br />
 {{#each model.notes as |note|}}
-<blockquote style="background-color:{{note.color}}">
-    Text: {{note.text}}<br />
-    User: {{note.owner.username}}<br />
-    Date: {{note.date}}<br />
-    Color: {{note.color}}<br />
-</blockquote>
+  {{#if (eq note.project.id model.project.id)}}
+  <blockquote style="background-color:{{note.color}}">
+      Text: {{note.text}}<br />
+      User: {{note.owner.username}}<br />
+      Date: {{note.date}}<br />
+      Color: {{note.color}}<br />
+  </blockquote>
+  {{/if}}
 {{/each}}
 
 
