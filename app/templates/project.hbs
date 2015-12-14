@@ -3,7 +3,7 @@ Owner: {{model.project.owner.username}}<br />
 isPublic: {{model.project.isPublic}}<br />
 
 {{#if (eq sessionAccount.account.username model.project.owner.username)}}
-  {{delete-button deleteAction="deleteProject"}}
+  {{delete-button deleteAction="deleteProject" model=model.project}}
 {{/if}}
 
 Members:<br />
@@ -34,7 +34,7 @@ Members:<br />
       Deadline: {{task.deadline}}<br />
       Color: {{task.color}}<br />
       Priority: {{task.priority}}<br />
-      State: {{task.state.name}}<br />
+      isDone?: {{task.isDone}}<br />
       Comments:
       <ul>
         {{#each task.comments as |comment|}}
@@ -47,6 +47,9 @@ Members:<br />
           <li>{{a.username}}</li>
         {{/each}}
       </ul>
+      {{#if (eq sessionAccount.account.username task.owner.username)}}
+        {{delete-button deleteAction="deleteTask" model=task}}
+      {{/if}}
     </blockquote>
   {{/if}}
 {{/each}}
@@ -61,6 +64,9 @@ Members:<br />
       User: {{note.owner.username}}<br />
       Date: {{note.date}}<br />
       Color: {{note.color}}<br />
+    {{#if (eq sessionAccount.account.username note.owner.username)}}
+      {{delete-button deleteAction="deleteTask" model=note}}
+    {{/if}}
   </blockquote>
   {{/if}}
 {{/each}}
@@ -69,6 +75,7 @@ Members:<br />
 <div id="task_modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
+            <form class="form-horizontal" id="task_form" {{action 'createTask' on='submit'}}>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New task</h4>
@@ -80,7 +87,6 @@ Members:<br />
                   </div>
               {{/if}}
 
-                <form class="form-horizontal" role="form" {{action 'createTask' on='submit'}}>
                     <fieldset>
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputName">Title</label>
@@ -100,7 +106,7 @@ Members:<br />
                             <label class="control-label col-lg-2" for="inputName">Deadline</label>
                             <div class="col-lg-10">
                             <div class="input-group date datetimepicker">
-                                {{input value=model.task.deadline class="form-control"}}
+                                {{input value=model.task.deadline id="datetimepicker_input" class="form-control"}}
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -109,6 +115,9 @@ Members:<br />
                             <script type="text/javascript">
                                 $(function () {
                                     $('.datetimepicker').datetimepicker();
+                                    $(".datetimepicker").on("dp.change", function (e) {
+                                        $('datetimepicker_input').focus();
+                                    });
                                 });
                             </script>
                         </div>
@@ -118,7 +127,7 @@ Members:<br />
                           <label class="control-label col-lg-2" for="inputName">Color</label>
                           <div class="col-lg-10">
                           <div class="input-group colorpicker" style="z-index:0;">
-                            {{input value=model.task.color class="form-control"}}
+                            {{input value=model.task.color id="colorpicker_input" class="form-control"}}
                               <span class="input-group-addon"><i></i></span>
                           </div>
                           </div>
@@ -126,6 +135,9 @@ Members:<br />
                               $(function(){
                                   $('.colorpicker').colorpicker({
                                       color: "#009900"
+                                  });
+                                  $('.colorpicker').colorpicker().on('changeColor.colorpicker', function(event) {
+                                      $("#colorpicker_input").focus();
                                   });
                               });
                           </script>
@@ -159,12 +171,12 @@ Members:<br />
 
                         <input type="hidden" value={{model.task.id}} id="id"/>
                     </fieldset>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-large btn-primary" {{action "createTask"}}>Save</button>
+                <button class="btn btn-large btn-primary" type="submit">Save</button>
             </div>
+        </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -173,6 +185,7 @@ Members:<br />
 <div id="note_modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
+            <form class="form-horizontal" id="note_form" {{action 'createNote' on='submit'}}>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New note</h4>
@@ -184,7 +197,6 @@ Members:<br />
                   </div>
               {{/if}}
 
-                <form class="form-horizontal" role="form" {{action 'createNote' on='submit'}}>
                     <fieldset>
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputName">Text</label>
@@ -197,7 +209,7 @@ Members:<br />
                             <label class="control-label col-lg-2" for="inputName">Color</label>
                             <div class="col-lg-10">
                                 <div class="input-group colorpicker2">
-                                  {{input value=model.note.color class="form-control"}}
+                                  {{input value=model.note.color id="colorpicker2_input" class="form-control"}}
                                     <span class="input-group-addon"><i></i></span>
                                 </div>
                             </div>
@@ -206,18 +218,21 @@ Members:<br />
                                     $('.colorpicker2').colorpicker({
                                         color: "#009900"
                                     });
+                                    $('.colorpicker2').colorpicker().on('changeColor.colorpicker', function(event) {
+                                      $("#colorpicker2_input").focus();
+                                    });
                                 });
                             </script>
                         </div>
 
                         <input type="hidden" value={{note.id}} id="id"/>
                     </fieldset>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-large btn-primary" {{action "createNote"}}>Save</button>
+                <button class="btn btn-large btn-primary" type="submit">Save</button>
             </div>
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

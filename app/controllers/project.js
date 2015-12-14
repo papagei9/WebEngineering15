@@ -8,17 +8,47 @@ export default Ember.Controller.extend({
 
       if(project) {
         var self = this;
-        var onSuccess = function(project) {
+        var onSuccess = function() {
           Ember.get(self, 'flashMessages').success('Project deleted!', {timeout: 5000});
           self.transitionToRoute('projects');
         };
 
-        var onFail = function(project) {
+        var onFail = function() {
           Ember.get(self, 'flashMessages').danger('You are not allowed to delete this project!', {timeout: 5000});
         };
 
         project.destroyRecord().then(onSuccess, onFail);
 
+      }
+    },
+    deleteTask: function(task) {
+      if(task) {
+
+        var self = this;
+        var onSuccess = function() {
+          Ember.get(self, 'flashMessages').success('Task deleted!', {timeout: 5000});
+        };
+
+        var onFail = function() {
+          Ember.get(self, 'flashMessages').danger('You are not allowed to delete this task!', {timeout: 5000});
+        };
+
+        task.destroyRecord().then(onSuccess, onFail);
+      }
+    },
+    deleteNote: function(note) {
+      if(note) {
+
+        var self = this;
+        var onSuccess = function() {
+          Ember.get(self, 'flashMessages').success('Note deleted!', {timeout: 5000});
+        };
+
+        var onFail = function() {
+          Ember.get(self, 'flashMessages').danger('You are not allowed to delete this note!', {timeout: 5000});
+        };
+
+        note.destroyRecord().then(onSuccess, onFail);
       }
     },
     createTask: function() {
@@ -37,13 +67,12 @@ export default Ember.Controller.extend({
         context: this,
         url: 'http://group-collab-api.herokuapp.com/api/projects/'+project.id+'/tasks',
         type: 'POST',
-        //data: data,
         data: JSON.stringify({ task: {
           title: task.get("title"),
           text: task.get("text"),
           color: task.get("color"),
           deadline: task.get("deadline"),
-          state: task.get("state"),
+          isDone: task.get("isDone"),
           priority: task.get("priority"),
           assignedUsers: usersArray
         }
@@ -56,7 +85,8 @@ export default Ember.Controller.extend({
       }).then(function(response) {
         flashMessages.success('Task saved!', {timeout: 5000});
         self.transitionToRoute('project', project);
-        $('#task_modal').modal('toggle');
+        Ember.$("#task_form").trigger("reset");
+        Ember.$('#task_modal').modal('toggle');
 
       }, function(xhr, status, error) {
         //var response = xhr.responseText;
@@ -95,7 +125,8 @@ export default Ember.Controller.extend({
       }).then(function(response) {
         flashMessages.success('Note saved!', {timeout: 5000});
         self.transitionToRoute('project', project);
-        $('#note_modal').modal('toggle');
+        Ember.$("#note_form").trigger("reset");
+        Ember.$('#note_modal').modal('toggle');
 
       }, function(xhr, status, error) {
         //var response = xhr.responseText;

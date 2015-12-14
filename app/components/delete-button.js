@@ -25,7 +25,7 @@ export default Ember.Component.extend({
       el = this.get('element');
       $confirm = Ember.$('.delete-confirm', el);
       $confirm.fadeOut();
-      return this.sendAction('deleteAction');
+      return this.sendAction('deleteAction', this.get('model'));
     }
   }
 });
