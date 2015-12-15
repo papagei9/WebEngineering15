@@ -29,9 +29,6 @@ export default Ember.Component.extend({
     editTask: function() {
       const flashMessages = Ember.get(this, 'flashMessages');
 
-      //this.set('users', this.get('task').get('assignedUsers'));
-      alert('editTask');
-
       var task = this.get('task');
       var id = task.get('id');
 
@@ -42,14 +39,14 @@ export default Ember.Component.extend({
       var priority = this.get('priority') || task.get('priority');
       var isDone = this.get('isDone') || task.get('isDone');
 
-      console.log(title);
+      /*console.log(title);
       console.log(text);
       console.log(deadline);
       console.log(isDone);
 
       console.log(this.get('addedUsers'));
       console.log(this.get('removedUsers'));
-
+*/
       var users = task.get('assignedUsers');
       this.get('addedUsers').forEach(function(item) {
         users.addObject(item);

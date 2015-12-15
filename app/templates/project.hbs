@@ -66,6 +66,7 @@ Members:<br />
       Date: {{note.date}}<br />
       Color: {{note.color}}<br />
     {{#if (eq sessionAccount.account.username note.owner.username)}}
+      {{edit-note-form editAction="editNote" model=model note=note}}
       {{delete-button deleteAction="deleteTask" model=note}}
     {{/if}}
   </blockquote>
