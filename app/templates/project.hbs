@@ -13,6 +13,8 @@ Members:<br />
     {{/each}}
 </ul>
 <br />
+{{edit-project-form editAction="editProject" model=model project=model.project}}
+<br />
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#task_modal">
     New task
 </button>
@@ -238,16 +240,3 @@ Members:<br />
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-<script>
-    /*
-    $(document).ready(function(){
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-    });
-    */
-</script>

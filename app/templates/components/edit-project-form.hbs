@@ -1,0 +1,55 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project_modal">
+    Edit project
+</button>
+
+<div id="project_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="project_form" {{action 'editProject' on='submit'}}>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit project</h4>
+                </div>
+                <div class="modal-body">
+                  {{#if errorMessage}}
+                      <div class="alert alert-danger">
+                          <strong>Saving failed:</strong> {{errorMessage}}
+                      </div>
+                  {{/if}}
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Name</label>
+                            <div class="col-lg-10">
+                              {{one-way-input value=project.name update=(action "nameChanged") class="form-control" }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">is Public?</label>
+                            <div class="col-lg-10">
+                              {{one-way-input type="checkbox" checked=project.isPublic update=(action "isPublicChanged") }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputMembers">Assigned Users</label>
+                            <div class="col-lg-10">
+                              {{#each model.project.members as |member|}}
+                                <li>{{ user-checkbox member=member project=model.project updateAction="addRemoveUser" }}</li>
+                              {{/each}}
+
+                            </div>
+                        </div>
+
+                        <input type="hidden" value={{project.id}} id="id"/>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-large btn-primary" type="submit">Update</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
