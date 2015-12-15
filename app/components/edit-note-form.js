@@ -18,24 +18,23 @@ export default Ember.Component.extend({
       var color = Ember.$("#note_colorpicker_input_"+id).val();
       var text = Ember.$("#note_text_input_"+id).val();
 
-      console.log(text);
-
       note.set('color', color);
       note.set('text', text);
-      note.save().then(successSave, errorSave);
 
       var that = this;
 
-      var successSave = function(data) {
-        Ember.$('#note_edit_modal_'+id).modal('toggle');
+      var noteSuccessSave = function() {
+        var _id = "#note_edit_modal_"+id;
+        Ember.$(_id).modal('toggle');
         flashMessages.success('Note updated!', {timeout: 5000});
       };
 
-      var errorSave = function(response) {
+      var noteErrorSave = function() {
         // handle the error
-        console.log(response);
         that.set('errorMessage','Could not edit/save note!');
       };
+
+      note.save().then(noteSuccessSave, noteErrorSave);
     }
   }
 });
