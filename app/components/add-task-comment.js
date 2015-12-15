@@ -10,10 +10,6 @@ export default Ember.Component.extend({
       //var task_id = this.getProperties('task_id');
       var task = this.get('task');
 
-      console.log('task-id: ' + task.get('id'));
-
-      alert('yeah add comment');
-
       var self = this;
 
       var cookie = Ember.$.cookie('authToken');
@@ -34,6 +30,7 @@ export default Ember.Component.extend({
         dataType: 'json'
       }).then(function () {
         Ember.get(self, 'flashMessages').success('Comment added!', {timeout: 5000});
+        self.get('router').transitionTo('project', project);
       }, function () {
         alert('Could not save comment!');
       });

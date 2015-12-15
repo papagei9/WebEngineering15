@@ -2,6 +2,7 @@ import DS from 'ember-data';
 
 var Comment =  DS.Model.extend({
   text: DS.attr('string'),
+  title: DS.attr('string'),
   user: DS.belongsTo('user',{async:true}),
   date: DS.attr('string'),
   task: DS.belongsTo('task',{async:true})
