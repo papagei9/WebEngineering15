@@ -16,6 +16,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       project = model.project;
     }
     controller.set('model.project', project);
+    controller.set('model.users', this.store.findAll('user'));
     controller.set('model.tasks', this.store.findAll('task'));
     controller.set('model.notes', this.store.findAll('note'));
     controller.set('model.task', this.store.createRecord('task'));

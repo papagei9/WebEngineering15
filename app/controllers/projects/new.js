@@ -18,7 +18,10 @@ export default Ember.Controller.extend({
         flashMessages.danger('Project could not save!', {timeout: 5000});
       };
 
-      project.save().then(onSuccess, onFail);
+      this.get('sessionAccount').get('account').then(function(owner) {
+        project.get('members').addObject(owner);
+        project.save().then(onSuccess, onFail);
+      });
 
     }
   }

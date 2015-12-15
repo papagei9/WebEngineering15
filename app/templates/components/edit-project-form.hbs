@@ -36,7 +36,16 @@
                             <label class="control-label col-lg-2" for="inputMembers">Assigned Users</label>
                             <div class="col-lg-10">
                               {{#each model.project.members as |member|}}
+                                {{#unless (eq member.username model.project.owner.username) }}
                                 <li>{{ user-checkbox member=member project=model.project updateAction="addRemoveUser" }}</li>
+                                {{/unless}}
+                              {{/each}}
+                              {{#each model.users as |u|}}
+                                {{#unless (contains model.project.members u) }}
+                                  {{#unless (eq u.username model.project.owner.username) }}
+                                  <li>{{ user-checkbox member=u project=model.project updateAction="addRemoveUser" }}</li>
+                                  {{/unless}}
+                                {{/unless}}
                               {{/each}}
 
                             </div>

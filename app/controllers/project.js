@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   sessionAccount: Ember.inject.service('session-account'),
   actions: {
     deleteProject: function() {
-      var project = this.get('model');
+      var project = this.get('model.project');
 
       if(project) {
         var self = this;
