@@ -1,0 +1,116 @@
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#task_edit_modal_{{task.id}}">
+    Edit task
+</button>
+
+<div id="task_edit_modal_{{task.id}}" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="task_edit_form_{{task.id}}" {{action 'editTask' on='submit'}}>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit task</h4>
+                </div>
+                <div class="modal-body">
+                  {{#if errorMessage}}
+                      <div class="alert alert-danger">
+                          <strong>Saving failed:</strong> {{errorMessage}}
+                      </div>
+                  {{/if}}
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Title</label>
+                            <div class="col-lg-10">
+                              {{one-way-input value=task.title update=(action "titleChanged") class="form-control" }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Text</label>
+                            <div class="col-lg-10">
+                                <textarea id="text_input_{{task.id}}" class="form-control">{{task.text}}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Deadline</label>
+                            <div class="col-lg-10">
+                                <div class="input-group date datetimepicker_{{task.id}}">
+                                    <input type="text" id="{{concat "datetimepicker_input_" task.id}}" class="form-control" />
+
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datetimepicker_{{task.id}}').datetimepicker({
+                                        defaultDate: "{{task.deadline}}"
+                                    });
+                                    $(".datetimepicker_{{task.id}}").on("dp.change", function (e) {
+                                        $('datetimepicker_input_{{task.id}}').focus();
+                                    });
+                                });
+                            </script>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Color</label>
+                            <div class="col-lg-10">
+                                <div class="input-group colorpicker_{{task.id}}" style="z-index:0;">
+
+                                  <input type="text" id="{{concat "colorpicker_input_" task.id}}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                            <script>
+                                $(function(){
+                                    $('.colorpicker_{{task.id}}').colorpicker({
+                                        color: "{{task.color}}"
+                                    });
+                                    $('.colorpicker_{{task.id}}').colorpicker().on('changeColor.colorpicker', function(event) {
+                                        $("#colorpicker_input_{{task.id}}").focus();
+                                   });
+                                });
+                            </script>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">Priority</label>
+                            <div class="col-lg-10">
+                              {{one-way-input value=task.priority update=(action "priorityChanged") class="form-control" }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputName">is Done?</label>
+                            <div class="col-lg-10">
+                              {{one-way-input type="checkbox" checked=task.isDone update=(action "isDoneChanged") }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputMembers">Assigned Users</label>
+                            <div class="col-lg-10">
+                              {{#each model.project.members as |member|}}
+                                  <li>{{ user-checkbox-task member=member task=task updateAction="addRemoveUser"}}</li>
+                              {{/each}}
+
+                            </div>
+                        </div>
+
+                        <input type="hidden" value={{task.id}} id="id"/>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-large btn-primary" type="submit">Update</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

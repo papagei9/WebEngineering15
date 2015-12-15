@@ -48,6 +48,7 @@ Members:<br />
         {{/each}}
       </ul>
       {{#if (eq sessionAccount.account.username task.owner.username)}}
+        {{edit-task-form editAction="editTask" model=model task=task}}
         {{delete-button deleteAction="deleteTask" model=task}}
       {{/if}}
     </blockquote>

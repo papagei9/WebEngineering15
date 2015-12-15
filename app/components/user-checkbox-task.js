@@ -16,12 +16,20 @@ var UserCheckboxTaskComponent = Ember.Component.extend({
     var members = task.get('assignedusers');
 
     if(memberChecked){
-      task.get('assignedUsers').addObject(member);
+      if(this.get('updateAction')) {
+        this.sendAction('updateAction', member,'add');
+      } else {
+        task.get('assignedUsers').addObject(member);
+      }
       //member.save();
       //project.save();
     }
     else {
-      task.get('assignedUsers').removeObject(member);
+      if(this.get('updateAction')) {
+        this.sendAction('updateAction', member,'remove');
+      } else {
+        task.get('assignedUsers').removeObject(member);
+      }
       //project.save();
     }
   }.observes('checked')
