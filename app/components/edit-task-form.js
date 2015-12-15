@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   isDone: null,
   addedUsers: [],
   removedUsers: [],
-
+  
   actions: {
     addRemoveUser: function(user, action) {
       if(action === 'add') {
@@ -61,23 +61,23 @@ export default Ember.Component.extend({
       task.set('text', text);
       task.set('priority',priority);
       task.set('isDone',isDone);
-      task.save().then(successSave, errorSave);
       //task.save();
       //Ember.$('#task_edit_modal_'+id).modal('toggle');
       //flashMessages.success('Task updated!', {timeout: 5000});
 
       var that = this;
 
-      var successSave = function(data) {
+      var successSave = function() {
         Ember.$('#task_edit_modal_'+id).modal('toggle');
         flashMessages.success('Task updated!', {timeout: 5000});
       };
 
-      var errorSave = function(response) {
+      var errorSave = function() {
         // handle the error
-        console.log(response);
         that.set('errorMessage','Could not edit/save task!');
       };
+
+      task.save().then(successSave, errorSave);
     },
 
     titleChanged(value) {

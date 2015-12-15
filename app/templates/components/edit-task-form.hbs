@@ -99,6 +99,11 @@
                               {{#each model.project.members as |member|}}
                                   <li>{{ user-checkbox-task member=member task=task updateAction="addRemoveUser"}}</li>
                               {{/each}}
+                              {{#each task.assignedUsers as |a|}}
+                                {{#unless (contains model.project.members a) }}
+                                    <li>{{ user-checkbox-task member=a task=task updateAction="addRemoveUser"}}</li>
+                                {{/unless}}
+                              {{/each}}
 
                             </div>
                         </div>
