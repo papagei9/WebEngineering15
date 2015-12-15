@@ -39,10 +39,15 @@ Members:<br />
       isDone?: {{task.isDone}}<br />
       Comments:
       <ul>
-        {{#each task.comments as |comment|}}
+        {{#each comments as |comment|}}
+          {{#if (eq task.id comment.task.id)}}
           <li>{{comment.user.username}} ({{comment.date}}): {{comment.text}}</li>
+          {{/if}}
         {{/each}}
       </ul>
+      {{add-task-comment model=model comment=model.comment task=task}}
+
+
       AssignedUsers:
       <ul>
         {{#each task.assignedUsers as |a|}}

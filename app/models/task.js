@@ -10,7 +10,6 @@ var Task = DS.Model.extend({
   color: DS.attr('string'),
   priority: DS.attr('string'),
   isDone: DS.attr('boolean'),
-  comments: DS.hasMany('comment', {async:true}),
   assignedUsers: DS.hasMany('user',{async:true})
 });
 
