@@ -9,9 +9,6 @@ export default Ember.Component.extend({
     editNote: function() {
       const flashMessages = Ember.get(this, 'flashMessages');
 
-      //this.set('users', this.get('task').get('assignedUsers'));
-      alert('editNote');
-
       var note = this.get('note');
       var id = note.get('id');
 

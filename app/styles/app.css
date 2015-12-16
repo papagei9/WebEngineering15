@@ -34,3 +34,10 @@
   border-width: 21px;
   margin-left: -21px;
 }
+
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1400px !important;
+  }
+}

@@ -1,84 +1,141 @@
-Name: {{model.project.name}}<br />
-Owner: {{model.project.owner.username}}<br />
-isPublic: {{model.project.isPublic}}<br />
+<h1>
+  {{model.project.name}}
+</h1>
 
-{{#if (eq sessionAccount.account.username model.project.owner.username)}}
-  {{delete-button deleteAction="deleteProject" model=model.project}}
-{{/if}}
+<div class="row">
+    <div class="col-md-3">
 
-Members:<br />
-<ul>
-    {{#each model.project.members as |m|}}
-    <li>{{m.username}}</li>
-    {{/each}}
-</ul>
-<br />
-{{edit-project-form editAction="editProject" model=model project=model.project}}
-<br />
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#task_modal">
-    New task
-</button>
-<br />
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#note_modal">
-    New note
-</button>
-<br />
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">About</h3>
+            </div>
 
-<b>Tasks: </b>
-<br />
-{{#each model.tasks as |task|}}
-  {{#if (eq task.project.id model.project.id)}}
-    <blockquote style="background-color:{{task.color}}">
-      Title: {{task.title}}<br />
-      User: {{task.owner.username}}<br />
-      Text: {{task.text}}<br />
-      Date: {{task.date}}<br />
-      Deadline: {{task.deadline}}<br />
-      Color: {{task.color}}<br />
-      Priority: {{task.priority}}<br />
-      isDone?: {{task.isDone}}<br />
-      Comments:
-      <ul>
-        {{#each model.comments as |comment|}}
-          {{#if (eq task.id comment.task.id)}}
-          <li>{{comment.user.username}} ({{comment.date}}): {{comment.title}}<br />{{comment.text}}</li>
-          {{/if}}
-        {{/each}}
-      </ul>
-      {{add-task-comment model=model comment=model.comment task=task}}
+            <ul class="list-group">
+                <li class="list-group-item"><strong><i class="glyphicon glyphicon-folder-close"></i> Name:</strong><br />{{model.project.name}}</li>
+                <li class="list-group-item"><strong><i class="glyphicon glyphicon-user"></i> Owner:</strong><br />{{model.project.owner.username}}</li>
+                <li class="list-group-item"><strong><i class="glyphicon glyphicon-eye-open"></i> Visibility:</strong><br />
+                {{#if model.project.isPublic}}<span class="label label-success">Public</span>{{else}}
+                    <span class="label label-danger">Private</span>{{/if}}
+                </li>
+                <li class="list-group-item"><strong><i class="glyphicon glyphicon-user"></i> Members:</strong><br />
+                {{#each model.project.members as |m|}}
+                    {{m.username}}<br />
+                {{/each}}
+                </li>
+                <li class="list-group-item"><strong><i class="glyphicon glyphicon-pencil"></i> Options:</strong><br/>
+                  {{#if (eq sessionAccount.account.username model.project.owner.username)}}
+                    <div class="row">
+                        <div class="col-md-4">
+                        {{edit-project-form editAction="editProject" model=model project=model.project}}
+                        </div>
+                        <div class="col-md-6">
+                        {{delete-button deleteAction="deleteProject" model=model.project}}
+                        </div>
+                    </div>
+                  {{/if}}
+                </li>
+            </ul>
 
+        </div>
 
-      AssignedUsers:
-      <ul>
-        {{#each task.assignedUsers as |a|}}
-          <li>{{a.username}}</li>
-        {{/each}}
-      </ul>
-      {{#if (eq sessionAccount.account.username task.owner.username)}}
-        {{edit-task-form editAction="editTask" model=model task=task}}
-        {{delete-button deleteAction="deleteTask" model=task}}
-      {{/if}}
-    </blockquote>
-  {{/if}}
-{{/each}}
+    </div>
 
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Taks
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#task_modal">
+                        New task
+                    </button>
+                </h1>
 
-<b>Notes: </b>
-<br />
-{{#each model.notes as |note|}}
-  {{#if (eq note.project.id model.project.id)}}
-  <blockquote style="background-color:{{note.color}}">
-      Text: {{note.text}}<br />
-      User: {{note.owner.username}}<br />
-      Date: {{note.date}}<br />
-      Color: {{note.color}}<br />
-    {{#if (eq sessionAccount.account.username note.owner.username)}}
-      {{edit-note-form editAction="editNote" model=model note=note}}
-      {{delete-button deleteAction="deleteTask" model=note}}
-    {{/if}}
-  </blockquote>
-  {{/if}}
-{{/each}}
+              {{#each model.tasks as |task|}}
+                {{#if (eq task.project.id model.project.id)}}
+
+                  <div class="panel panel-info">
+                      <div class="panel-heading">
+                          <h3 class="panel-title">{{task.title}}
+                            {{#if task.isDone}}<span class="label label-success">Done</span>{{else}}<span class="label label-danger">Open</span>{{/if}}
+                              <span class="label label-default pull-right">{{format-date task.date "DD.MM.YYYY - HH:mm"}}</span></h3>
+                      </div>
+
+                      <ul class="list-group">
+                        <li class="list-group-item"><strong>Owner:</strong> {{task.owner.username}}</li>
+                        <li class="list-group-item"><strong>Deadline:</strong> {{format-date task.deadline "DD.MM.YYYY - HH:mm"}}</li>
+                        <li class="list-group-item"><strong>Priority:</strong> {{task.priority}}</li>
+                          <li class="list-group-item"><strong>Information:</strong><br />{{task.text}}</li>
+                        <li class="list-group-item"><strong>Comments:</strong><br />
+                              <ul>
+                                {{#each model.comments as |comment|}}
+                                  {{#if (eq task.id comment.task.id)}}
+                                      <li><b>{{comment.user.username}}</b> ({{format-date comment.date "DD.MM.YYYY - HH:mm"}})<br />{{comment.text}}</li>
+                                  {{/if}}
+                                {{/each}}
+                              </ul>
+                            {{add-task-comment model=model comment=model.comment task=task}}
+                        </li>
+                        <li class="list-group-item"><strong>Assigned users:</strong><br />
+                              <ul>
+                                {{#each task.assignedUsers as |a|}}
+                                    <li>{{a.username}}</li>
+                                {{/each}}
+                              </ul>
+                        </li>
+                        <li class="list-group-item"><strong>Options:</strong>
+                            {{#if (eq sessionAccount.account.username task.owner.username)}}
+                              <div class="row">
+                              <div class="col-md-2">
+                                {{edit-task-form editAction="editTask" model=model task=task}}
+                              </div>
+                              <div class="col-md-3">
+                                {{delete-button deleteAction="deleteTask" model=task}}
+                              </div>
+                              </div>
+                            {{/if}}
+                        </li>
+                      </ul>
+                  </div>
+                {{/if}}
+              {{/each}}
+            </div>
+            <div class="col-md-6">
+                <h1>Notes
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#note_modal">
+                        New note
+                    </button>
+                </h1>
+
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Notes</h3>
+                  </div>
+                  <ul class="list-group">
+                  {{#each model.notes as |note|}}
+                    {{#if (eq note.project.id model.project.id)}}
+                    <li class="list-group-item note-element" style="background-color:{{note.color}}">
+                        {{note.text}}<br /><br />
+                        <small>by <strong>{{note.owner.username}}</strong>, {{format-date note.date "DD.MM.YYYY - HH:mm"}}
+                        {{#if (eq sessionAccount.account.username note.owner.username)}}
+                          <div class="row pull-right">
+                          <div class="col-md-5">
+                            {{edit-note-form editAction="editNote" model=model note=note}}
+                          </div>
+                          <div class="col-md-3">
+                            {{delete-button deleteAction="deleteTask" model=note}}
+                          </div>
+                          </div>
+                        {{/if}}
+                        </small>
+                      </li>
+                    {{/if}}
+                  {{/each}}
+                  </ul>
+
+                </div>
+              </div>
+          </div>
+    </div>
+</div>
 
 
 <div id="task_modal" class="modal fade" tabindex="-1" role="dialog">
@@ -105,9 +162,9 @@ Members:<br />
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-lg-2" for="inputName">Text</label>
+                            <label class="control-label col-lg-2" for="inputName">Information</label>
                             <div class="col-lg-10">
-                              {{input value=model.task.text class="form-control"}}
+                              {{textarea value=model.task.text class="form-control" cols="80" rows="6"}}
                             </div>
                         </div>
 
@@ -210,7 +267,7 @@ Members:<br />
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputName">Text</label>
                             <div class="col-lg-10">
-                              {{input value=model.note.text class="form-control"}}
+                              {{textarea value=model.note.text class="form-control" cols="80" rows="6"}}
                             </div>
                         </div>
 
@@ -225,7 +282,7 @@ Members:<br />
                             <script>
                                 $(function(){
                                     $('.colorpicker2').colorpicker({
-                                        color: "#009900"
+                                        color: "#ffffff"
                                     });
                                     $('.colorpicker2').colorpicker().on('changeColor.colorpicker', function(event) {
                                       $("#colorpicker2_input").focus();

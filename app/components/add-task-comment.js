@@ -19,7 +19,7 @@ export default Ember.Component.extend({
         type: 'POST',
         data: JSON.stringify({
           comment: {
-            title: comment.get("title"),
+            title: comment.get("text"),
             text: comment.get("text")
           }
         }),

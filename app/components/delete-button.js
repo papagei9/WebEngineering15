@@ -6,7 +6,9 @@ export default Ember.Component.extend({
       var $btn, $confirm, el, height, offset, width;
       el = this.get('element');
       $btn = Ember.$('.btn-delete', el);
+      console.log($btn);
       offset = $btn.offset();
+      console.log(offset);
       $confirm = $btn.next();
       height = $confirm.outerHeight();
       width = $confirm.outerWidth();
