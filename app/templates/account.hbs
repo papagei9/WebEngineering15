@@ -26,7 +26,10 @@
             <ul class="list-group">
                 {{#each projects as |project|}}
                   {{#if (eq project.owner.username model.username) }}
-                    <li class="list-group-item">{{#link-to "project.index" project}}{{project.name}}{{/link-to}}</li>
+                    <li class="list-group-item">
+                      {{#if project.isPublic}}<span class="label label-success">Public</span>{{else}}
+                          <span class="label label-danger">Private</span>{{/if}}
+                      {{#link-to "project.index" project.id}}{{project.name}}{{/link-to}}</li>
                   {{/if}}
                 {{/each}}
             </ul>

@@ -18,7 +18,7 @@
                 <td>
                   {{#if item.isPublic}}<span class="label label-success">Public</span>{{else}}
                       <span class="label label-danger">Private</span>{{/if}}
-                  {{#link-to "project.index" item}}{{item.name}}{{/link-to}}</td>
+                  {{#link-to "project.index" item.id}}{{item.name}}{{/link-to}}</td>
                 <td>{{item.owner.username}}</td>
             </tr>
         {{/if}}
