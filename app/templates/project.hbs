@@ -60,7 +60,7 @@
                 {{#if (eq task.project.id model.project.id)}}
 
                   <div class="panel panel-info">
-                      <div class="panel-heading">
+                      <div class="panel-heading" style="background:rgba{{task.colorRGBA}}">
                           <h3 class="panel-title"><a data-toggle="collapse" data-target="#collapse_{{task.id}}" href="javascript:;">{{task.title}}</a>
                             {{#if task.isDone}}<span class="label label-success">Done</span>{{else}}<span class="label label-danger">Open</span>{{/if}}
                             <div class="pull-right">

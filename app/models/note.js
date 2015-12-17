@@ -9,6 +9,7 @@ var Note = DS.Model.extend({
 
   colorRGBA: function() {
     var RGB = this.get('color');
+    if(RGB === '') return '';
     var A = '0.6';
     var RGBA='('+parseInt(RGB.substring(1,3),16)+','+parseInt(RGB.substring(3,5),16)+','+parseInt(RGB.substring(5,7),16)+','+A+')';
     return RGBA;
