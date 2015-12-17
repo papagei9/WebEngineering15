@@ -7,7 +7,7 @@ var Task = DS.Model.extend({
   project: DS.belongsTo('project', {async:true}),
   date: DS.attr('string'),
   deadline: DS.attr('string'),
-  color: DS.attr('string'),
+  color: DS.attr('string', {defaultValue:'#ffffff'}),
   priority: DS.attr('string'),
   isDone: DS.attr('boolean'),
   assignedUsers: DS.hasMany('user',{async:true})

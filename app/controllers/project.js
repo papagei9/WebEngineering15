@@ -86,11 +86,13 @@ export default Ember.Controller.extend({
         },
         contentType: 'application/json',
         dataType: 'json'
-      }).then(function() {
+      }).then(function(answer) {
         flashMessages.success('Task saved!', {timeout: 5000});
-        self.transitionToRoute('project', project);
+        //self.transitionToRoute('project', project);
         Ember.$("#task_form").trigger("reset");
         Ember.$('#task_modal').modal('toggle');
+
+        self.store.findRecord('task', answer.task._id);
 
       }, function() {
         this.set('errorMessage', "Task could not save!");
@@ -98,7 +100,9 @@ export default Ember.Controller.extend({
 
     },
     createNote: function() {
-      var note = this.get('model.note');
+      //var note = this.get('model.note');
+
+      var note = this.getProperties('note_text', 'note_color');
 
       var project = this.get('model.project');
       const flashMessages = Ember.get(this, 'flashMessages');
@@ -112,8 +116,10 @@ export default Ember.Controller.extend({
         type: 'POST',
         //data: data,
         data: JSON.stringify({ note: {
-          color: note.get("color"),
-          text:  note.get("text")
+          //color: note.get("color"),
+          color: note.note_color,
+          //text:  note.get("text")
+          text: note.note_text
         }
         }),
         headers: {
@@ -121,16 +127,18 @@ export default Ember.Controller.extend({
         },
         contentType: 'application/json',
         dataType: 'json'
-      }).then(function() {
+      }).then(function(answer) {
         flashMessages.success('Note saved!', {timeout: 5000});
+        Ember.$('#note_modal').modal('hide');
         Ember.$("#note_form").trigger("reset");
-        Ember.$('#note_modal').modal('toggle');
-        self.transitionToRoute('project', project);
-        //self.get('model.notes').reload();
+        Ember.$("#colorpicker2_input").val("#ffffff");
+
+        //reload
+        self.store.findRecord('note', answer.note._id);
+
       }, function() {
         this.set('errorMessage', "Note could not save!");
       });
-
     }
   }
 });

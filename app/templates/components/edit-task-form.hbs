@@ -46,7 +46,7 @@
                             <script type="text/javascript">
                                 $(function () {
                                     $('.datetimepicker_{{task.id}}').datetimepicker({
-                                        defaultDate: "{{task.deadline}}"
+                                        defaultDate: "{{task.deadline}}",
                                     });
                                     $(".datetimepicker_{{task.id}}").on("dp.change", function (e) {
                                         $('datetimepicker_input_{{task.id}}').focus();
@@ -68,7 +68,8 @@
                             <script>
                                 $(function(){
                                     $('.colorpicker_{{task.id}}').colorpicker({
-                                        color: "{{task.color}}"
+                                        color: "{{task.color}}",
+                                        format: 'hex'
                                     });
                                     $('.colorpicker_{{task.id}}').colorpicker().on('changeColor.colorpicker', function(event) {
                                         $("#colorpicker_input_{{task.id}}").focus();

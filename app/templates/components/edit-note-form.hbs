@@ -37,7 +37,8 @@
                             <script>
                                 $(function(){
                                     $('.note_colorpicker_{{note.id}}').colorpicker({
-                                      color: "{{#if note.color}}{{note.color}}{{else}}#009900{{/if}}"
+                                      color: "{{#if note.color}}{{note.color}}{{else}}#009900{{/if}}",
+                                        format: 'hex'
                                     });
                                     $('.note_colorpicker_{{note.id}}').colorpicker().on('changeColor.colorpicker', function(event) {
                                         $("#note_colorpicker_input_{{note.id}}").focus();

@@ -5,7 +5,8 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model: function(params) {
     return Ember.RSVP.hash({
-      project: this.store.findRecord('project', params.project_id)
+      project: this.store.findRecord('project', params.project_id),
+      //notes: this.store.findAll('note', {reload:true})
       //tasks: this.store.findAll('task')
     });
   },
@@ -21,7 +22,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     controller.set('model.notes', this.store.findAll('note'));
     controller.set('model.comments', this.store.findAll('comment'));
     controller.set('model.task', this.store.createRecord('task'));
-    controller.set('model.note', this.store.createRecord('note'));
+    //controller.set('model.note', this.store.createRecord('note'));
     controller.set('model.comment', this.store.createRecord('comment'));
   }
 });
