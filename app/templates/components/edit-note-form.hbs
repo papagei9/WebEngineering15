@@ -37,7 +37,10 @@
                             <script>
                                 $(function(){
                                     $('.note_colorpicker_{{note.id}}').colorpicker({
-                                      color: "{{#if note.color}}{{note.color}}{{else}}#009900{{/if}}",
+
+                                      {{#unless (eq note.color "") }}
+                                          color: "{{note.color}}",
+                                      {{/unless}}
                                         format: 'hex'
                                     });
                                     $('.note_colorpicker_{{note.id}}').colorpicker().on('changeColor.colorpicker', function(event) {

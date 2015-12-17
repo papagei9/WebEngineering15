@@ -68,7 +68,9 @@
                             <script>
                                 $(function(){
                                     $('.colorpicker_{{task.id}}').colorpicker({
+                                    {{#unless (eq task.color "") }}
                                         color: "{{task.color}}",
+                                    {{/unless}}
                                         format: 'hex'
                                     });
                                     $('.colorpicker_{{task.id}}').colorpicker().on('changeColor.colorpicker', function(event) {
