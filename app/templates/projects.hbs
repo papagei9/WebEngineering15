@@ -20,9 +20,9 @@
       <td>{{item.owner.username}}</td>
       <td>{{#unless (eq item.owner.username sessionAccount.account.username) }}
           {{#unless (contains item.members sessionAccount.account) }}
-            <button type="button" class="btn btn-primary" {{action "joinProject" item}}>Join</button>
+            <button type="button" class="btn btn-primary btn-xs" {{action "joinProject" item}}>Join</button>
           {{else}}
-            <button type="button" class="btn btn-danger" {{action "leaveProject" item}}>Leave</button>
+            <button type="button" class="btn btn-danger btn-xs" {{action "leaveProject" item}}>Leave</button>
           {{/unless}}
           {{/unless}}
       </td>
