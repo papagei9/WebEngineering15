@@ -32,6 +32,7 @@ export default Ember.Component.extend({
       }).then(function (result) {
         Ember.get(self, 'flashMessages').success('Comment added!', {timeout: 5000});
         //self.get('router').transitionTo('project', project);
+        Ember.$("#comment_field_"+task.id).val("");
         self.get('store').findRecord('comment', result.comment._id);
       }, function () {
         alert('Could not save comment!');
