@@ -117,11 +117,11 @@
                         <small>by <strong>{{note.owner.username}}</strong>, {{format-date note.date "DD.MM.YYYY - HH:mm"}}
                         {{#if (eq sessionAccount.account.username note.owner.username)}}
                           <div class="row pull-right">
-                          <div class="col-md-5">
+                          <div class="col-md-8">
                             {{edit-note-form editAction="editNote" model=model note=note}}
                           </div>
                           <div class="col-md-3">
-                            {{delete-button deleteAction="deleteTask" model=note small=true}}
+                            {{delete-button deleteAction="deleteNote" model=note small=true}}
                           </div>
                           </div>
                         {{/if}}
