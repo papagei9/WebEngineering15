@@ -62,6 +62,9 @@ export default Ember.Controller.extend({
         note.destroyRecord().then(onSuccess, onFail);
       }
     },
+    priorityChanged: function(value) {
+      this.get('model.task').set('priority',value);
+    },
     createTask: function() {
       var task = this.get('model.task');
       var project = this.get('model.project');

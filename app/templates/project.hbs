@@ -49,7 +49,7 @@
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-6">
-                <h1>Taks
+                <h1>Tasks
                     <a href="javascript:;" data-toggle="collapse" class="collapse_all btn btn-default" data-target=".panel-collapse-task"></a>
                     <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#task_modal">
                         New task
@@ -217,7 +217,7 @@
                           <script>
                               $(function(){
                                   $('.colorpicker').colorpicker({
-                                      color: "#009900",
+                                      color: "",
                                       format: 'hex'
                                   });
                                   $('.colorpicker').colorpicker().on('changeColor.colorpicker', function(event) {
@@ -232,7 +232,11 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="inputName">Priority</label>
                             <div class="col-lg-10">
-                              {{input value=model.task.priority class="form-control"}}
+                                <select class="form-control" onchange={{action "priorityChanged" value="target.value"}}>
+                                    <option value="low" selected={{eq task.priority "low"}}>low</option>
+                                    <option value="middle" selected={{eq task.priority "middle"}}>middle</option>
+                                    <option value="high" selected={{eq task.priority "high"}}>high</option>
+                                </select>
                             </div>
                         </div>
 

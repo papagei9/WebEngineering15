@@ -21,7 +21,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     controller.set('model.tasks', this.store.findAll('task'));
     controller.set('model.notes', this.store.findAll('note'));
     controller.set('model.comments', this.store.findAll('comment'));
-    controller.set('model.task', this.store.createRecord('task'));
+    controller.set('model.task', this.store.createRecord('task', {priority:'low'}));
     //controller.set('model.note', this.store.createRecord('note'));
     controller.set('model.comment', this.store.createRecord('comment'));
   }
