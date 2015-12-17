@@ -1,39 +1,45 @@
-{{#if errorMessage}} 
-    <div class="alert alert-danger"> 
-      <strong>Sign up failed:</strong> {{errorMessage}} 
-    </div>  
-  {{/if}}
-
-{{#if successMessage}} 
-    <div class="alert alert-success"> 
-      <strong>Sign up successful:</strong> {{successMessage}} 
-    </div>  
-  {{/if}}
-
-<form {{action 'register' on='submit'}}> 
-    <div class="form-group"> 
-      <label for="identification">Username</label> 
-      {{input value=identification placeholder='Enter Username' class='form-control'}} 
-    </div> 
-    <div class="form-group"> 
-      <label for="password">Password</label> 
-      {{input value=password placeholder='Enter Password' class='form-control' type='password'}} 
-    </div> 
-     <div class="form-group"> 
-      <label for="repeat_password">Repeat Password</label> 
-      {{input value=repeat_password placeholder='Repeat Password' class='form-control' type='password'}} 
+{{#if errorMessage}}
+    <div class="alert alert-danger">
+        <strong>Sign up failed:</strong> {{errorMessage}}
     </div>
-    <div class="form-group"> 
-      <label for="email">Email</label> 
-      {{input value=email placeholder='Enter Email' class='form-control'}} 
-    </div> 
-    <div class="form-group"> 
-      <label for="firstName">First name</label> 
-      {{input value=firstName placeholder='Enter first name' class='form-control'}} 
-    </div> 
-    <div class="form-group"> 
-      <label for="lastName">Last name</label> 
-      {{input value=lastName placeholder='Enter Last name' class='form-control'}} 
-    </div> 
-    <button type="submit" class="btn btn-default">Sign up</button> 
-  </form> 
+{{/if}}
+
+{{#if successMessage}}
+    <div class="alert alert-success">
+        <strong>Sign up successful:</strong> {{successMessage}}
+    </div>
+{{/if}}
+
+
+<div class="row">
+    <div class="col-md-6">
+<form {{action 'register' on='submit'}}>
+    <div class="form-group">
+      <label for="identification">Username</label>
+      {{input value=identification placeholder='Enter Username' class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+    </div>
+     <div class="form-group">
+      <label for="repeat_password">Repeat Password</label>
+      {{input value=repeat_password placeholder='Repeat Password' class='form-control' type='password'}}
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      {{input value=email placeholder='Enter Email' class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      {{input value=firstName placeholder='Enter first name' class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      {{input value=lastName placeholder='Enter Last name' class='form-control'}}
+    </div>
+    <button type="submit" class="btn btn-default">Sign up</button>
+  </form>
+
+        </div>
+    </div>
