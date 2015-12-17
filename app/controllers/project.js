@@ -24,6 +24,8 @@ export default Ember.Controller.extend({
     deleteTask: function(task) {
       if(task) {
 
+        Ember.$(".delete_modal").modal('hide');
+
         var self = this;
         var onSuccess = function() {
           Ember.get(self, 'flashMessages').success('Task deleted!', {timeout: 5000});
@@ -38,6 +40,8 @@ export default Ember.Controller.extend({
     },
     deleteNote: function(note) {
       if(note) {
+
+        Ember.$(".delete_modal").modal('hide');
 
         var self = this;
         var onSuccess = function() {
@@ -82,19 +86,14 @@ export default Ember.Controller.extend({
         },
         contentType: 'application/json',
         dataType: 'json'
-      }).then(function(response) {
+      }).then(function() {
         flashMessages.success('Task saved!', {timeout: 5000});
         self.transitionToRoute('project', project);
         Ember.$("#task_form").trigger("reset");
         Ember.$('#task_modal').modal('toggle');
 
-      }, function(xhr, status, error) {
-        //var response = xhr.responseText;
-        //flashMessages.danger('Task could not save!', {timeout: 5000});
-        //self.transitionToRoute('project', project);
+      }, function() {
         this.set('errorMessage', "Task could not save!");
-        //console.log(status);
-        //console.log(error);
       });
 
     },
@@ -122,19 +121,14 @@ export default Ember.Controller.extend({
         },
         contentType: 'application/json',
         dataType: 'json'
-      }).then(function(response) {
+      }).then(function() {
         flashMessages.success('Note saved!', {timeout: 5000});
-        self.transitionToRoute('project', project);
         Ember.$("#note_form").trigger("reset");
         Ember.$('#note_modal').modal('toggle');
-
-      }, function(xhr, status, error) {
-        //var response = xhr.responseText;
-        //flashMessages.danger('Task could not save!', {timeout: 5000});
-        //self.transitionToRoute('project', project);
+        self.transitionToRoute('project', project);
+        //self.get('model.notes').reload();
+      }, function() {
         this.set('errorMessage', "Note could not save!");
-        //console.log(status);
-        //console.log(error);
       });
 
     }
