@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-var ProjectsController = Ember.Controller.extend({
+var MyProjectsController = Ember.Controller.extend({
   sessionAccount: Ember.inject.service('session-account'),
   projectBus: Ember.inject.service('project-bus'),
   actions: {
@@ -13,4 +13,4 @@ var ProjectsController = Ember.Controller.extend({
   }
 });
 
-export default ProjectsController;
+export default MyProjectsController;

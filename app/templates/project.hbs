@@ -32,6 +32,12 @@
                         {{delete-button deleteAction="deleteProject" model=model.project}}
                         </div>
                     </div>
+                  {{else}}
+                    {{#unless (contains model.project.members sessionAccount.account) }}
+                        <button type="button" class="btn btn-primary" {{action "joinProject" model.project}}>Join</button>
+                    {{else}}
+                        <button type="button" class="btn btn-danger" {{action "leaveProject" model.project}}>Leave</button>
+                    {{/unless}}
                   {{/if}}
                 </li>
             </ul>

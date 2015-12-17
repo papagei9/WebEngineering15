@@ -2,7 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   sessionAccount: Ember.inject.service('session-account'),
+  projectBus: Ember.inject.service('project-bus'),
   actions: {
+    joinProject: function(project) {
+      this.get('projectBus').joinProject(project);
+    },
+    leaveProject: function(project) {
+      this.get('projectBus').leaveProject(project);
+    },
     deleteProject: function() {
       var project = this.get('model.project');
 
