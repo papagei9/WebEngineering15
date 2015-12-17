@@ -24,14 +24,12 @@
                 </li>
                 <li class="list-group-item"><strong><i class="glyphicon glyphicon-pencil"></i> Options:</strong><br/>
                   {{#if (eq sessionAccount.account.username model.project.owner.username) }}
-                    <div class="row">
-                        <div class="col-md-3">
-                        {{edit-project-form editAction="editProject" model=model project=model.project}}
-                        </div>
-                        <div class="col-md-6">
-                        {{delete-button deleteAction="deleteProject" model=model.project}}
-                        </div>
-                    </div>
+                    <table>
+                        <tr>
+                            <td style="width:120px;">{{edit-project-form editAction="editProject" model=model project=model.project}}</td>
+                            <td>{{delete-button deleteAction="deleteProject" model=model.project}}</td>
+                        </tr>
+                    </table>
                   {{else}}
                     {{#unless (contains model.project.members sessionAccount.account) }}
                         <button type="button" class="btn btn-primary" {{action "joinProject" model.project}}>Join</button>
@@ -107,15 +105,12 @@
                         </li>
                         {{#if (or (eq sessionAccount.account.username task.owner.username) (eq sessionAccount.account.username model.project.owner.username)) }}
                         <li class="list-group-item"><strong>Options:</strong>
-
-                              <div class="row">
-                              <div class="col-md-2">
-                                {{edit-task-form editAction="editTask" model=model task=task}}
-                              </div>
-                              <div class="col-md-3">
-                                {{delete-button deleteAction="deleteTask" model=task}}
-                              </div>
-                              </div>
+                            <table>
+                                <tr>
+                                    <td style="width:100px;">{{edit-task-form editAction="editTask" model=model task=task}}</td>
+                                  <td>{{delete-button deleteAction="deleteTask" model=task}}</td>
+                              </tr>
+                                </table>
                         </li>
                         {{/if}}
                       </ul>
@@ -145,14 +140,12 @@
                         {{breaklines note.text}}<br /><br />
                         <small>by <strong>{{note.owner.username}}</strong>, {{format-date note.date "DD.MM.YYYY - HH:mm"}}
                         {{#if (or (eq sessionAccount.account.username note.owner.username) (eq sessionAccount.account.username model.project.owner.username)) }}
-                          <div class="row pull-right">
-                          <div class="col-md-8">
-                            {{edit-note-form editAction="editNote" model=model note=note}}
-                          </div>
-                          <div class="col-md-3">
-                            {{delete-button deleteAction="deleteNote" model=note small=true}}
-                          </div>
-                          </div>
+                          <table class="pull-right">
+                              <tr>
+                                  <td style="width:70px;">{{edit-note-form editAction="editNote" model=model note=note}}</td>
+                                  <td>{{delete-button deleteAction="deleteNote" model=note small=true}}</td>
+                            </tr>
+                        </table>
                         {{/if}}
                         </small>
                       </li>
