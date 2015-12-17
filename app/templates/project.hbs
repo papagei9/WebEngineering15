@@ -94,7 +94,9 @@
                                   {{/if}}
                                 {{/each}}
                               </ul>
-                            {{add-task-comment model=model comment=model.comment task=task}}
+                          {{#if (contains model.project.members sessionAccount.account) }}
+                          {{add-task-comment model=model comment=model.comment task=task}}
+                          {{/if}}
                         </li>
                         <li class="list-group-item"><strong>Assigned users:</strong><br />
                               <ul>
