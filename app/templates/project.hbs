@@ -75,8 +75,14 @@
                       <div id="collapse_{{task.id}}" class="panel-collapse panel-collapse-task collapse in">
                       <ul class="list-group">
                         <li class="list-group-item"><strong>Owner:</strong> {{task.owner.username}}</li>
-                        <li class="list-group-item"><strong>Deadline:</strong> {{format-date task.deadline "DD.MM.YYYY - HH:mm"}}</li>
-                        <li class="list-group-item"><strong>Priority:</strong>&nbsp;
+                        <li class="list-group-item"><strong>Deadline:</strong>
+                          {{#if task.deadline}}
+                            {{format-date task.deadline "DD.MM.YYYY - HH:mm"}}
+                          {{else}}
+                            <i>No deadline</i>
+                          {{/if}}
+                          </li>
+                        <li class="list-group-item"><strong>Priority:</strong>
                           {{#if (eq task.priority "low") }}<span class="label label-default">low</span>{{/if}}
                           {{#if (eq task.priority "middle") }}<span class="label label-warning">middle</span>{{/if}}
                           {{#if (eq task.priority "high") }}<span class="label label-danger">high</span>{{/if}}
