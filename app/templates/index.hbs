@@ -1,1 +1,17 @@
-<h1>Welcome to Ember</h1>
+<div class="jumbotron">
+    <h1>Welcome to Group-Collab!</h1>
+
+    <ul>
+        <li>Create public and private projects</li>
+        <li>Add tasks and assign project members</li>
+        <li>Set task deadlines and more!</li>
+        <li>Add notes</li>
+    </ul>
+
+    {{#if session.isAuthenticated}}
+      <p>{{#link-to "projects.new" class="btn btn-success"}}Start with a new project{{/link-to}} or {{#link-to "projects" class="btn btn-default"}}Check out public projects{{/link-to}}</p>
+    {{else}}
+      <p>{{#link-to "signup" class="btn btn-primary btn-lg"}}Sign up!{{/link-to}}</p>
+      <p>{{#link-to "login"}}or sign in if you already have an account{{/link-to}}</p>
+    {{/if}}
+</div>
