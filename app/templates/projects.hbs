@@ -1,8 +1,26 @@
+<h1>Public projects</h1>
 {{#link-to "projects.new" class="btn btn-default"}}New project{{/link-to}}
 <br /><br />
 
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+    <th>Project</th>
+    <th>Owner</th>
+</tr>
+</thead>
+<tbody>
+
 {{#each model as |item|}}
-{{#if item.id}}
-{{#link-to "project.index" item}}{{item.name}} (by {{item.owner.username}}){{/link-to}}<br />
+{{#if item.id }}
+  {{#if item.isPublic }}
+  <tr>
+      <td>{{#link-to "project.index" item}}{{item.name}}{{/link-to}}</td>
+      <td>{{item.owner.username}}</td>
+  </tr>
+  {{/if}}
 {{/if}}
 {{/each}}
+
+</tbody>
+</table>
