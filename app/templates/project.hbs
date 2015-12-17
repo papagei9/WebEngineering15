@@ -23,7 +23,7 @@
                 {{/each}}
                 </li>
                 <li class="list-group-item"><strong><i class="glyphicon glyphicon-pencil"></i> Options:</strong><br/>
-                  {{#if (eq sessionAccount.account.username model.project.owner.username)}}
+                  {{#if (eq sessionAccount.account.username model.project.owner.username) }}
                     <div class="row">
                         <div class="col-md-3">
                         {{edit-project-form editAction="editProject" model=model project=model.project}}
@@ -62,7 +62,10 @@
                   <div class="panel panel-info">
                       <div class="panel-heading" style="background:rgba{{task.colorRGBA}}">
                           <h3 class="panel-title"><a data-toggle="collapse" data-target="#collapse_{{task.id}}" href="javascript:;">{{task.title}}</a>
-                            {{#if task.isDone}}<span class="label label-success">Done</span>{{else}}<span class="label label-danger">Open</span>{{/if}}
+                            {{#if task.isDone}}<span class="label label-success" title="Status">Done</span>{{else}}<span class="label label-danger" title="Status">Open</span>{{/if}}&nbsp;
+                            {{#if (eq task.priority "low") }}<span class="label label-default" title="Priority">low</span>{{/if}}
+                            {{#if (eq task.priority "middle") }}<span class="label label-warning" title="Priority">middle</span>{{/if}}
+                            {{#if (eq task.priority "high") }}<span class="label label-danger" title="Priority">high</span>{{/if}}
                             <div class="pull-right">
                               <span class="label label-default">{{format-date task.date "DD.MM.YYYY - HH:mm"}}</span>&nbsp;&nbsp;
                               <a data-toggle="collapse" class="collapse_a" data-target="#collapse_{{task.id}}" href="javascript:;"></a>
@@ -73,7 +76,11 @@
                       <ul class="list-group">
                         <li class="list-group-item"><strong>Owner:</strong> {{task.owner.username}}</li>
                         <li class="list-group-item"><strong>Deadline:</strong> {{format-date task.deadline "DD.MM.YYYY - HH:mm"}}</li>
-                        <li class="list-group-item"><strong>Priority:</strong> {{task.priority}}</li>
+                        <li class="list-group-item"><strong>Priority:</strong>&nbsp;
+                          {{#if (eq task.priority "low") }}<span class="label label-default">low</span>{{/if}}
+                          {{#if (eq task.priority "middle") }}<span class="label label-warning">middle</span>{{/if}}
+                          {{#if (eq task.priority "high") }}<span class="label label-danger">high</span>{{/if}}
+                        </li>
                           <li class="list-group-item"><strong>Information:</strong><br />{{breaklines task.text}}</li>
                         <li class="list-group-item"><strong>Comments:</strong><br />
                               <ul>
@@ -92,8 +99,9 @@
                                 {{/each}}
                               </ul>
                         </li>
+                        {{#if (or (eq sessionAccount.account.username task.owner.username) (eq sessionAccount.account.username model.project.owner.username)) }}
                         <li class="list-group-item"><strong>Options:</strong>
-                            {{#if (eq sessionAccount.account.username task.owner.username)}}
+
                               <div class="row">
                               <div class="col-md-2">
                                 {{edit-task-form editAction="editTask" model=model task=task}}
@@ -102,8 +110,8 @@
                                 {{delete-button deleteAction="deleteTask" model=task}}
                               </div>
                               </div>
-                            {{/if}}
                         </li>
+                        {{/if}}
                       </ul>
                       </div>
                   </div>
@@ -130,7 +138,7 @@
                     <li class="list-group-item note-element" style="background:rgba{{note.colorRGBA}}">
                         {{breaklines note.text}}<br /><br />
                         <small>by <strong>{{note.owner.username}}</strong>, {{format-date note.date "DD.MM.YYYY - HH:mm"}}
-                        {{#if (eq sessionAccount.account.username note.owner.username)}}
+                        {{#if (or (eq sessionAccount.account.username note.owner.username) (eq sessionAccount.account.username model.project.owner.username)) }}
                           <div class="row pull-right">
                           <div class="col-md-8">
                             {{edit-note-form editAction="editNote" model=model note=note}}
@@ -217,7 +225,6 @@
                           <script>
                               $(function(){
                                   $('.colorpicker').colorpicker({
-                                      color: "",
                                       format: 'hex'
                                   });
                                   $('.colorpicker').colorpicker().on('changeColor.colorpicker', function(event) {
