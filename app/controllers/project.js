@@ -14,6 +14,9 @@ export default Ember.Controller.extend({
       var project = this.get('model.project');
 
       if(project) {
+
+        Ember.$(".delete_modal").modal('hide');
+
         var self = this;
         var onSuccess = function() {
           Ember.get(self, 'flashMessages').success('Project deleted!', {timeout: 5000});
